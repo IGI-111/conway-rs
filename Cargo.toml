@@ -1,0 +1,11 @@
+[package]
+name = "conway"
+version = "0.1.0"
+authors = ["IGI-111 <igi-111@protonmail.com>"]
+
+[dependencies]
+rand = "0.3"
+termion = "1.2"
+
+[dependencies.drawille]
+git = "git://github.com/P1start/drawille-rs"
