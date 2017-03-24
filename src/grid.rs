@@ -1,4 +1,5 @@
 use rand::{Rng, thread_rng};
+use rayon::prelude::*;
 
 pub struct Grid {
     cur: Vec<bool>,
@@ -27,11 +28,10 @@ impl Grid {
             height,
         }
     }
+    #[allow(dead_code)]
     pub fn tick(&mut self) {
         let mut alt = vec![false; self.width * self.height];
-        for (i, a) in alt.iter_mut().enumerate() {
-            *a = self.will_live(i)
-        }
+        alt.par_iter_mut().enumerate().for_each(|(i, a)| *a = self.will_live(i));
         self.cur = alt;
     }
     pub fn is_alive(&self, x: usize, y: usize) -> bool {
