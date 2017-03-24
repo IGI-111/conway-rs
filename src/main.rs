@@ -8,7 +8,9 @@ use std::io::{stdout, Write, Read};
 use termion::raw::IntoRawMode;
 use termion::{terminal_size, cursor, clear, async_stdin};
 use drawille::Canvas;
-use std::{thread, time};
+use std::{time, thread};
+
+const TICK_DURATION: u64 = 20;
 
 pub fn main() {
     let mut stdin = async_stdin();
@@ -25,7 +27,7 @@ pub fn main() {
 
     let mut now = time::Instant::now();
     loop {
-        if now.elapsed() > time::Duration::from_millis(10) {
+        if now.elapsed() > time::Duration::from_millis(TICK_DURATION) {
             grid.tick();
             display(&grid, &mut canvas);
 
@@ -35,6 +37,8 @@ pub fn main() {
                 break;
             }
             now = time::Instant::now();
+        } else {
+            thread::sleep(time::Duration::from_millis(TICK_DURATION) - now.elapsed());
         }
     }
     write!(stdout, "{}", cursor::Show).unwrap();
