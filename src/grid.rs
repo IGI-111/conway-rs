@@ -12,8 +12,8 @@ impl Grid {
     pub fn new(width: usize, height: usize) -> Self {
         Grid {
             cur: vec![false;width * height],
-            width,
-            height,
+            width: width,
+            height: height,
         }
     }
     pub fn random(width: usize, height: usize) -> Self {
@@ -23,9 +23,9 @@ impl Grid {
             *e = rng.gen();
         }
         Grid {
-            cur,
-            width,
-            height,
+            cur: cur,
+            width: width,
+            height: height,
         }
     }
     #[allow(dead_code)]
